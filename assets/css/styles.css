@@ -1,0 +1,531 @@
+/* styles.css — Organized Skeleton Styles */
+
+/* -------------------------- IMPORTS -------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* -------------------------- VARIABLES ------------------------ */
+:root {
+  --bg: #ffffff;
+  --fg: #222222;
+  --accent: #007acc;
+}
+
+/* -------------------------- BASE STYLES ---------------------- */
+.noSelect {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.noSelect:focus {
+    outline: none !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  padding: 0 5px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+header, main, footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* -------------------------- HEADER & NAV -------------------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  position: relative; /* needed for mobile dropdown */
+}
+
+#menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+nav#main-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+#main-nav > a,
+#main-nav .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+  padding: 6px 4px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#main-nav > a:focus,
+#main-nav .dropdown-toggle:focus {
+  outline: 2px solid #4d90fe;
+  outline-offset: 2px;
+}
+
+/* Dropdown */
+#main-nav .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#main-nav .dropdown-toggle::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+  transform: translateY(2px);
+  margin-left: 2px;
+}
+
+#main-nav .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  border-radius: 6px;
+  z-index: 1000;
+  padding: 6px 0;
+}
+
+#main-nav .dropdown-content a {
+  display: block;
+  padding: 8px 14px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #111;
+}
+
+#main-nav .dropdown:hover .dropdown-content,
+#main-nav .dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+/* Twitter link */
+nav a.twitter-link {
+  display: inline-flex;
+  align-items: center; /* vertical centering */
+  margin-left: 1rem;
+}
+
+nav a.twitter-link img {
+  height: 1em;
+  width: auto;
+  display: block;      /* ensures proper scaling inside flex */
+  position: static;    /* remove relative top nudge */
+}
+
+
+nav a.twitter-link:hover svg {
+  fill: #1DA1F2;
+}
+
+/* -------------------------- MAIN ---------------------------- */
+main {
+  min-height: 60vh;
+  padding: 2rem 0;
+}
+
+/* -------------------------- TEAM SECTION -------------------- */
+.team-members {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 900px;
+  /*margin: 0 auto;*/
+  text-align: left;
+}
+
+.team-member {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.team-photo {
+  flex: 0 0 20%;
+  min-width: 120px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.team-info {
+  flex: 1 1 auto;
+  min-width: 150px;
+}
+
+/* -------------------------- HIGHLIGHTS ---------------------- */
+
+#highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.highlight-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+  height: 70vw;
+  max-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.highlight-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3));
+}
+
+.highlight-content {
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+}
+
+.highlight-content h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-content p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* -------------------------- MARK & BUTTON ------------------- */
+mark {
+  background-color: white;
+  border: 4px solid white;
+  border-radius: 10px;
+}
+
+.btn {
+  background: white;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* -------------------------- FOOTER -------------------------- */
+.footer-column.brand {
+  text-align: center; /* centers all content inside */
+}
+
+.footer-logo {
+  height: 50px;
+  display: block;
+  margin: 0 auto 1rem; /* auto left/right centers the logo, 1rem bottom spacing */
+}
+
+footer, .site-footer {
+  color: var(--fg);
+  font-size: 0.9rem;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.site-footer .footer-column {
+  flex: 1;
+  min-width: 220px;
+  margin: 0 20px;
+}
+
+.site-footer .brand h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.site-footer h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer ul li {
+  margin-bottom: 8px;
+}
+
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+  color: #005fa3;
+  text-decoration: underline;
+}
+
+.site-footer .footer-bottom {
+  width: 100%;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* -------------------------- RESPONSIVE ---------------------- */
+/* Mobile nav & team adjustments */
+@media (max-width: 768px) {
+  #main-nav {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  #main-nav.show {
+    display: flex;
+  }
+
+  #main-nav .dropdown {
+    width: 100%;
+  }
+
+  #main-nav .dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #main-nav .dropdown-content {
+    position: static;
+    box-shadow: none;
+    border-radius: 0;
+    display: none;
+    padding-left: 16px;
+  }
+
+  #main-nav .dropdown.open .dropdown-content {
+    display: block;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 15px;
+  }
+
+  .site-footer .footer-column {
+    margin: 5px 0;
+  }
+
+  .team-photo {
+    display: none;
+  }
+}
+
+/* Smaller mobile nav */
+@media (max-width: 580px) {
+  nav#main-nav {
+    display: none;
+    flex-direction: column;
+    background-color: var(--bg);
+    position: absolute;
+    top: 60px;
+    right: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+  }
+
+  nav#main-nav a {
+    margin: 0.5rem 0;
+    display: block;
+  }
+
+  #menu-toggle {
+    display: block;
+  }
+}
+
+/* -------------------------- SELECT STYLING ------------------- */
+select {
+padding: 8px;
+margin-bottom: 10px;
+font-family: 'Montserrat', sans-serif;
+font-weight: 500;
+font-size: 1rem;
+color: var(--fg);
+background-color: var(--bg);
+border: 1px solid #ccc;
+border-radius: 6px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+transition: border-color 0.3s, box-shadow 0.3s;
+width: 25%;
+min-width: 188px;
+}
+
+
+select:focus {
+outline: none;
+border-color: var(--accent);
+box-shadow: 0 0 5px rgba(0, 122, 204, 0.3);
+}
+/* -------------------------- TABLES ---------------------- */
+/* Dropdown container */
+.dropdown-container {
+  margin: 1rem 0;
+}
+
+
+/* Table container */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1.5rem; /* space between tables */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;                    /* container handles spacing */
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.6rem;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+}
+/* Embedded search input */
+.table-search {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;       /* match table borders */
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  display: block;                /* ensure it shows/hides properly */
+}
+
+
+/* Pagination container */
+.table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-family: inherit;
+}
+
+/* Pagination buttons */
+.table-pagination button {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.table-pagination button:hover:not(:disabled) {
+  background-color: #eee;
+  border-color: #999;
+}
+
+.table-pagination button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Page info text */
+.table-pagination .page-info {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+hr.flourish-divider {
+  border: none;            /* remove default border */
+  border-top: 1px solid #ccc;
+  margin: 1rem 0;
+}
+
+/* -------------------------- LINKS ---------------------- */
+a {
+  color: #007acc;
+  text-decoration: none; /* optional, removes underline */
+}
+
+a:hover {
+  color: #005f99; /* optional, slightly darker on hover */
+}
