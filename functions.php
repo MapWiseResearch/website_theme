@@ -52,26 +52,33 @@ add_action('widgets_init', 'mapwise_widgets_init');
 
 
 /**
- * Shortcode: [mw_cards tag="home-featured" posts="9" title="Featured"]
- * Works with BOTH Pages and Posts
+ * Shortcode:
+ * [mw_cards posts="9" title="Featured"]
+ *
+ * Shows ONLY Pages/Posts tagged with: front-page
+ * Uses featured image as a "cover" card image.
  */
 function mw_cards_shortcode($atts) {
     $atts = shortcode_atts([
-        'tag'   => 'home-featured',
         'posts' => 9,
         'title' => '',
+        'tag'   => 'front-page',
     ], $atts, 'mw_cards');
 
-    $tag = sanitize_title($atts['tag']);
     $posts_per_page = max(1, min(30, intval($atts['posts'])));
     $title = sanitize_text_field($atts['title']);
-
-    if (!$tag) return '';
+    $tag = sanitize_title($atts['tag']);
 
     $q = new WP_Query([
-        'post_type' => ['post', 'page'], // ← THIS IS THE KEY CHANGE
+        'post_type' => ['page', 'post'],
         'posts_per_page' => $posts_per_page,
-        'tag' => $tag,
+        'tax_query' => [
+            [
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms'    => $tag,
+            ],
+        ],
         'ignore_sticky_posts' => true,
     ]);
 
@@ -88,14 +95,14 @@ function mw_cards_shortcode($atts) {
     while ($q->have_posts()) {
         $q->the_post();
 
+        $thumb_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
+        $style = $thumb_url ? ' style="background-image:url(' . esc_url($thumb_url) . ')"' : '';
+
         echo '<article class="mw-card">';
         echo '<a class="mw-card-link" href="' . esc_url(get_permalink()) . '">';
 
-        if (has_post_thumbnail()) {
-            echo '<div class="mw-card-thumb">';
-            the_post_thumbnail('medium_large');
-            echo '</div>';
-        }
+        // Cover image area (like old cards)
+        echo '<div class="mw-card-cover' . ($thumb_url ? '' : ' is-empty') . '"' . $style . '></div>';
 
         echo '<div class="mw-card-body">';
         echo '<h3 class="mw-card-title">' . esc_html(get_the_title()) . '</h3>';
