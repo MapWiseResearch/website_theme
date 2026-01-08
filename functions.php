@@ -50,6 +50,18 @@ function mapwise_widgets_init() {
 }
 add_action('widgets_init', 'mapwise_widgets_init');
 
+function page_link_shortcode($atts, $content = null) {
+    $atts = shortcode_atts([
+        'slug' => '',
+        'class' => ''
+    ], $atts);
+
+    $page = get_page_by_path($atts['slug']);
+    if (!$page) return '';
+
+    return '<a href="' . get_permalink($page->ID) . '" class="' . esc_attr($atts['class']) . '">' . do_shortcode($content) . '</a>';
+}
+add_shortcode('page', 'page_link_shortcode');
 
 /**
  * Shortcode:
