@@ -41,45 +41,28 @@ $d_logo  = mapwise_media_url_by_filename('discord_logo.png');
 
     <!-- Navigation -->
     <nav class="site-nav" aria-label="Primary">
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a href="<?php echo esc_url(home_url('/forecasts/')); ?>">Forecasts</a>
-        </li>
+  <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
+    ☰
+  </button>
 
-        <li class="nav-item">
-          <a href="<?php echo esc_url(home_url('/articles/')); ?>">Articles</a>
-        </li>
+  <ul id="primary-menu" class="nav-list" hidden>
+    <li class="nav-item"><a href="<?php echo esc_url(home_url('/forecasts/')); ?>">Forecasts</a></li>
+    <li class="nav-item"><a href="<?php echo esc_url(home_url('/articles/')); ?>">Articles</a></li>
 
-        <li class="nav-item has-dropdown">
-          <button
-            class="dropdown-toggle"
-            type="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Projects <span class="dropdown-caret" aria-hidden="true">▾</span>
-          </button>
+    <li class="nav-item has-dropdown">
+      <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        Projects <span class="dropdown-caret" aria-hidden="true">▾</span>
+      </button>
 
-          <ul class="dropdown-menu" aria-label="Projects submenu">
-            <li>
-              <a href="<?php echo esc_url(home_url('/projects/')); ?>">
-                All Projects
-              </a>
-            </li>
-            <li>
-              <a href="<?php echo esc_url(home_url('/projects/mapwise-forecast/')); ?>">
-                MapWise Forecast
-              </a>
-            </li>
-            <li>
-              <a href="<?php echo esc_url(home_url('/projects/data/')); ?>">
-                Data
-              </a>
-            </li>
-          </ul>
-        </li>
+      <ul class="dropdown-menu" aria-label="Projects submenu" hidden>
+        <li><a href="<?php echo esc_url(home_url('/projects/')); ?>">All Projects</a></li>
+        <li><a href="<?php echo esc_url(home_url('/projects/mapwise-forecast/')); ?>">MapWise Forecast</a></li>
+        <li><a href="<?php echo esc_url(home_url('/projects/data/')); ?>">Data</a></li>
       </ul>
-    </nav>
+    </li>
+  </ul>
+</nav>
+
 
     <!-- Social -->
     <div class="topbar-social" aria-label="Social links">
@@ -122,24 +105,72 @@ $d_logo  = mapwise_media_url_by_filename('discord_logo.png');
 <!-- Dropdown support for touch devices -->
 <script>
 (function () {
-  const dropdown = document.querySelector('.has-dropdown');
-  if (!dropdown) return;
+  const header = document.querySelector('.site-header');
+  if (!header) return;
 
-  const btn  = dropdown.querySelector('.dropdown-toggle');
-  const menu = dropdown.querySelector('.dropdown-menu');
+  const hamburger = header.querySelector('.nav-hamburger');
+  const menu = header.querySelector('#primary-menu');
 
-  btn.addEventListener('click', function (e) {
+  const dropdown = header.querySelector('.has-dropdown');
+  const dropBtn = dropdown ? dropdown.querySelector('.dropdown-toggle') : null;
+  const dropMenu = dropdown ? dropdown.querySelector('.dropdown-menu') : null;
+
+  function closeDropdown() {
+    if (!dropMenu || !dropBtn) return;
+    dropMenu.hidden = true;
+    dropBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleDropdown(e) {
     e.preventDefault();
-    const open = menu.style.display === 'block';
-    menu.style.display = open ? 'none' : 'block';
-    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-  });
+    if (!dropMenu || !dropBtn) return;
+    const willOpen = dropMenu.hidden;
+    dropMenu.hidden = !willOpen;
+    dropBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
+  function closeMenu() {
+    if (!menu || !hamburger) return;
+    menu.hidden = true;
+    hamburger.setAttribute('aria-expanded', 'false');
+    closeDropdown();
+  }
+
+  function toggleMenu() {
+    if (!menu || !hamburger) return;
+    const willOpen = menu.hidden;
+    menu.hidden = !willOpen;
+    hamburger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    if (!willOpen) closeDropdown();
+  }
+
+  // Initialize closed (prevents weird “open on load”)
+  if (menu) menu.hidden = true;
+  closeDropdown();
+
+  if (hamburger && menu) {
+    hamburger.addEventListener('click', function (e) {
+      e.preventDefault();
+      toggleMenu();
+    });
+  }
+
+  if (dropBtn && dropMenu) {
+    dropBtn.addEventListener('click', toggleDropdown);
+  }
 
   document.addEventListener('click', function (e) {
-    if (!dropdown.contains(e.target)) {
-      menu.style.display = 'none';
-      btn.setAttribute('aria-expanded', 'false');
+    // close dropdown if click outside it
+    if (dropdown && !dropdown.contains(e.target)) closeDropdown();
+    // close mobile menu if click outside nav entirely (optional)
+    if (menu && hamburger && !header.querySelector('.site-nav').contains(e.target)) {
+      // only do this on mobile widths
+      if (window.matchMedia('(max-width: 860px)').matches) closeMenu();
     }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
   });
 })();
 </script>
