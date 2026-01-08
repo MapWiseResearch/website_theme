@@ -16,9 +16,6 @@ body {
 
 a { color: inherit; }
 
-/* Prevent menu flash */
-[hidden] { display: none !important; }
-
 /* =========================
    Header / Topbar
 ========================= */

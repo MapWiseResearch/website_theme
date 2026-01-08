@@ -54,7 +54,7 @@ $d_logo  = mapwise_media_url_by_filename('discord_logo.png');
         Projects <span class="dropdown-caret" aria-hidden="true">▾</span>
       </button>
 
-      <ul class="dropdown-menu" aria-label="Projects submenu" hidden>
+      <ul class="dropdown-menu" aria-label="Projects submenu">
         <li><a href="<?php echo esc_url(home_url('/projects/')); ?>">All Projects</a></li>
         <li><a href="<?php echo esc_url(home_url('/projects/mapwise-forecast/')); ?>">MapWise Forecast</a></li>
         <li><a href="<?php echo esc_url(home_url('/projects/data/')); ?>">Data</a></li>
