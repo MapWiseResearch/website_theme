@@ -45,7 +45,7 @@ $d_logo  = mapwise_media_url_by_filename('discord_logo.png');
     ☰
   </button>
 
-  <ul id="primary-menu" class="nav-list" hidden>
+  <ul id="primary-menu" class="nav-list">
     <li class="nav-item"><a href="<?php echo esc_url(home_url('/forecasts/')); ?>">Forecasts</a></li>
     <li class="nav-item"><a href="<?php echo esc_url(home_url('/articles/')); ?>">Articles</a></li>
 
