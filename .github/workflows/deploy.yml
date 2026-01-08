@@ -23,8 +23,12 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --comment "Deploy MapWise WordPress theme" \
             --parameters commands='[
-              "set -e",
-              "cd /var/www/mapwisepolitics/wp-content/themes/mapwise",
-              "sudo -u www-data git fetch origin",
-              "sudo -u www-data git reset --hard origin/main"
-            ]'
+            "set -e",
+            "cd /var/www/mapwisepolitics/wp-content/themes/mapwise",
+            "git fetch origin",
+            "git reset --hard origin/main",
+            "chown -R www-data:www-data /var/www/mapwisepolitics/wp-content/themes/mapwise",
+            "find /var/www/mapwisepolitics/wp-content/themes/mapwise -type d -exec chmod 755 {} \\;",
+            "find /var/www/mapwisepolitics/wp-content/themes/mapwise -type f -exec chmod 644 {} \\;",
+            "echo DEPLOYED_SHA=$(git rev-parse HEAD)"
+          ]'
