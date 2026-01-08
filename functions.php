@@ -172,3 +172,32 @@ function mw_tagbar_shortcode($atts) {
     return ob_get_clean();
 }
 add_shortcode('mw_tagbar', 'mw_tagbar_shortcode');
+
+/**
+ * Find a Media Library attachment URL by its filename (e.g. "banner.png").
+ * Returns "" if not found.
+ */
+function mapwise_media_url_by_filename(string $filename): string {
+  $filename = trim($filename);
+  if ($filename === '') return '';
+
+  $q = new WP_Query([
+    'post_type'      => 'attachment',
+    'post_status'    => 'inherit',
+    'posts_per_page' => 1,
+    'fields'         => 'ids',
+    'meta_query'     => [
+      [
+        'key'     => '_wp_attached_file',
+        'value'   => '/' . preg_quote($filename, '/') . '$',
+        'compare' => 'REGEXP',
+      ]
+    ],
+  ]);
+
+  if (empty($q->posts)) return '';
+  $id = (int) $q->posts[0];
+
+  $url = wp_get_attachment_url($id);
+  return $url ? $url : '';
+}

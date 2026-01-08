@@ -91,3 +91,151 @@ a { color: inherit; }
 .mw-card-body { padding: .9rem; }
 .mw-card-title { margin: 0 0 .4rem 0; font-size: 1.05rem; }
 .mw-card-excerpt { margin: 0; opacity: .85; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-img {
+  height: 38px;       /* adjust */
+  width: auto;
+  display: block;
+}
+
+.site-nav {
+  flex: 1;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item > a,
+.dropdown-toggle {
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+}
+
+.nav-item > a:hover,
+.dropdown-toggle:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.has-dropdown {
+  position: relative;
+}
+
+.dropdown-caret {
+  margin-left: 6px;
+  font-size: 0.9em;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+  padding: 8px;
+  list-style: none;
+  margin: 0;
+  display: none;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* desktop hover */
+.has-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* social */
+.topbar-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* mobile */
+.nav-hamburger {
+  display: none;
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+@media (max-width: 860px) {
+  .nav-list {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .nav-hamburger {
+    display: inline-flex;
+  }
+}
