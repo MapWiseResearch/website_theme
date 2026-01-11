@@ -1,9 +1,14 @@
 <?php
 /**
- * Home Page – MapWise Front Page (filters + author + sort)
+ * Home Page – MapWise Front Page (filters + author + sort + search)
  */
 
 get_header();
+
+/**
+ * Search
+ */
+$search_q = get_search_query();
 
 /**
  * Read filter inputs
@@ -50,6 +55,7 @@ $args = [
   'ignore_sticky_posts' => true,
   'orderby'             => $orderby,
   'order'               => $order,
+  's'                   => $search_q,
 ];
 
 if ($cat_id > 0) $args['cat'] = $cat_id;
@@ -77,10 +83,43 @@ $authors    = get_users(['who' => 'authors']);
   </section>
 
   <!-- ======================
+       Search (same as 404)
+  ====================== -->
+  <section class="mw-404-search">
+    <form class="mw-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+      <input
+        class="mw-search-input"
+        type="search"
+        name="s"
+        placeholder="Search articles…"
+        value="<?php echo esc_attr($search_q); ?>"
+        aria-label="Search articles"
+      >
+
+      <?php if ($cat_id > 0): ?>
+        <input type="hidden" name="cat" value="<?php echo (int) $cat_id; ?>">
+      <?php endif; ?>
+
+      <?php if ($tag_slug !== ''): ?>
+        <input type="hidden" name="tag" value="<?php echo esc_attr($tag_slug); ?>">
+      <?php endif; ?>
+
+      <?php if ($author_id > 0): ?>
+        <input type="hidden" name="author" value="<?php echo (int) $author_id; ?>">
+      <?php endif; ?>
+
+      <?php if ($sort && $sort !== 'new'): ?>
+        <input type="hidden" name="sort" value="<?php echo esc_attr($sort); ?>">
+      <?php endif; ?>
+    </form>
+  </section>
+
+  <!-- ======================
        Filters
   ====================== -->
   <section class="search-filters-wrap">
     <form class="search-filters" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+      <input type="hidden" name="s" value="<?php echo esc_attr($search_q); ?>">
 
       <label class="filter-field">
         <span>Category</span>
@@ -130,7 +169,7 @@ $authors    = get_users(['who' => 'authors']);
 
       <button class="filter-button" type="submit">Apply</button>
 
-      <?php if ($cat_id || $tag_slug || $author_id || ($sort && $sort !== 'new')): ?>
+      <?php if ($search_q || $cat_id || $tag_slug || $author_id || ($sort && $sort !== 'new')): ?>
         <a class="filter-reset" href="<?php echo esc_url(home_url('/')); ?>">Reset</a>
       <?php endif; ?>
 
@@ -142,12 +181,7 @@ $authors    = get_users(['who' => 'authors']);
   ====================== -->
   <section class="frontpage-grid">
 
-    <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post();
-
-      $author_name = get_the_author();
-      $cats_list   = get_the_category_list(', ');
-      $tags_list   = get_the_tag_list('', ', ');
-    ?>
+    <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
       <article class="frontpage-card">
         <a href="<?php the_permalink(); ?>">
@@ -164,16 +198,7 @@ $authors    = get_users(['who' => 'authors']);
             <div class="card-meta">
               <span><?php echo esc_html(get_the_date()); ?></span>
               <span class="meta-dot">•</span>
-              <span>By <?php echo esc_html($author_name); ?></span>
-            </div>
-
-            <div class="card-tax">
-              <?php if ($cats_list): ?>
-                <div class="tax-row"><span class="tax-label">Categories:</span> <span class="tax-values"><?php echo $cats_list; ?></span></div>
-              <?php endif; ?>
-              <?php if ($tags_list): ?>
-                <div class="tax-row"><span class="tax-label">Tags:</span> <span class="tax-values"><?php echo $tags_list; ?></span></div>
-              <?php endif; ?>
+              <span>By <?php echo esc_html(get_the_author()); ?></span>
             </div>
 
             <p><?php echo esc_html(wp_trim_words(get_the_excerpt(), 26)); ?></p>
@@ -191,7 +216,7 @@ $authors    = get_users(['who' => 'authors']);
   </section>
 
   <!-- ======================
-       Pagination (preserve filters)
+       Pagination
   ====================== -->
   <div class="frontpage-pagination">
     <?php
@@ -199,6 +224,7 @@ $authors    = get_users(['who' => 'authors']);
         'total'   => $query->max_num_pages,
         'current' => $paged,
         'add_args' => [
+          's'      => $search_q,
           'cat'    => $cat_id,
           'tag'    => $tag_slug,
           'author' => $author_id,

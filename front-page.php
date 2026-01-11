@@ -72,7 +72,7 @@ $projects_img = mapwise_media_url_by_filename('computer-scaled.jpeg');
   </section>
 
   <!-- ======================
-       Latest Articles (3 most recent)
+       Latest Articles (9 most recent)
        Uses your existing .frontpage-* styles
   ====================== -->
   <section class="mw-section">
@@ -80,7 +80,7 @@ $projects_img = mapwise_media_url_by_filename('computer-scaled.jpeg');
       <?php
       $latest = new WP_Query([
         'post_type'           => 'post',
-        'posts_per_page'      => 3,
+        'posts_per_page'      => 9,
         'ignore_sticky_posts' => true,
       ]);
 

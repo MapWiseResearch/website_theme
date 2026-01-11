@@ -8,16 +8,25 @@ get_header();
 
 <main class="site-main">
 
-  <section class="archive-head" style="max-width: var(--container); margin: 2rem auto 1.25rem; padding: 0 1rem;">
-    <h1 style="margin: 0 0 .35rem 0;">Page not found</h1>
-    <p style="margin: 0; opacity: .75; max-width: 70ch;">
+  <section class="archive-head">
+    <h1>Page not found</h1>
+    <p>
       That URL doesn’t exist (or it moved). Try searching, or check the latest articles below.
     </p>
   </section>
 
-  <section class="search-filters-wrap" style="margin-top: 0;">
-    <?php get_search_form(); ?>
-  </section>
+    <section class="mw-404-search" aria-label="Search">
+      <form class="mw-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+        <input
+          class="mw-search-input"
+          type="search"
+          name="s"
+          placeholder="Search…"
+          value="<?php echo esc_attr(get_search_query()); ?>"
+          aria-label="Search"
+        >
+      </form>
+    </section>
 
   <?php
     $recent = new WP_Query([

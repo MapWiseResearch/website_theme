@@ -64,12 +64,12 @@ $yt_logo = mapwise_media_url_by_filename('yt_logo.png');
         </li>
         <!-- Mobile-only socials inside menu -->
         <li class="nav-item nav-social mobile-only">
-          <a class="social-in-menu" href="https://x.com/" target="_blank" rel="noopener">
+          <a class="social-in-menu" href="https://x.com/MapWisePolitics" target="_blank" rel="noopener">
             <?php if ($x_logo): ?><img src="<?php echo esc_url($x_logo); ?>" alt="X" class="social-icon"><?php endif; ?>
           </a>
         </li>
         <li class="nav-item nav-social mobile-only">
-          <a class="social-in-menu" href="https://www.youtube.com/" target="_blank" rel="noopener">
+          <a class="social-in-menu" href="https://www.youtube.com/@MapWisePolitics" target="_blank" rel="noopener">
             <?php if ($yt_logo): ?><img src="<?php echo esc_url($yt_logo); ?>" alt="YouTube" class="social-icon"><?php endif; ?>
           </a>
         </li>

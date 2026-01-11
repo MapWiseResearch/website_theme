@@ -9,8 +9,8 @@ get_header();
 
 <main class="site-main">
 
-  <section class="archive-head" style="max-width: var(--container); margin: 2rem auto 1.25rem; padding: 0 1rem;">
-    <h1 class="archive-title" style="margin: 0 0 .35rem 0;">
+  <section class="archive-head">
+    <h1 class="archive-title">
       <?php the_archive_title(); ?>
     </h1>
 

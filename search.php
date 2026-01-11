@@ -9,7 +9,6 @@ function mapwise_highlight_terms($text, $query) {
   $query = trim((string) $query);
   if ($query === '' || $text === '') return $text;
 
-  // Split query into words, ignore tiny terms
   $terms = preg_split('/\s+/', $query);
   $terms = array_values(array_filter($terms, function($t) {
     $t = trim($t);
@@ -46,11 +45,10 @@ $args = [
 ];
 
 if ($cat_id > 0) {
-  $args['cat'] = $cat_id; // category ID
+  $args['cat'] = $cat_id;
 }
-
 if (!empty($tag_slug)) {
-  $args['tag'] = $tag_slug; // tag slug
+  $args['tag'] = $tag_slug;
 }
 
 $q = new WP_Query($args);
@@ -65,7 +63,7 @@ $tags       = get_tags(['hide_empty' => false]);
 <main class="site-main">
 
   <section class="home-hero">
-    <h1>Search</h1>
+    <h1 class="post-title page-title">Search</h1>
     <p>
       <?php if ($search_q !== ''): ?>
         <?php echo 'Showing results for “' . esc_html($search_q) . '”'; ?>
@@ -73,6 +71,30 @@ $tags       = get_tags(['hide_empty' => false]);
         Type a keyword to search MapWisePolitics.
       <?php endif; ?>
     </p>
+  </section>
+
+  <!-- ======================
+       Search (404 style)
+  ====================== -->
+  <section class="mw-404-search">
+    <form class="mw-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+      <input
+        class="mw-search-input"
+        type="search"
+        name="s"
+        placeholder="Search articles…"
+        value="<?php echo esc_attr($search_q); ?>"
+        aria-label="Search articles"
+      >
+
+      <?php if ($cat_id > 0): ?>
+        <input type="hidden" name="cat" value="<?php echo (int) $cat_id; ?>">
+      <?php endif; ?>
+
+      <?php if ($tag_slug !== ''): ?>
+        <input type="hidden" name="tag" value="<?php echo esc_attr($tag_slug); ?>">
+      <?php endif; ?>
+    </form>
   </section>
 
   <!-- ======================
@@ -170,9 +192,7 @@ $tags       = get_tags(['hide_empty' => false]);
 
     <?php endwhile; wp_reset_postdata(); else: ?>
 
-      <p class="search-empty">
-        No results found.
-      </p>
+      <p class="search-empty">No results found.</p>
 
     <?php endif; ?>
 
