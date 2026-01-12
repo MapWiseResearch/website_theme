@@ -41,7 +41,7 @@ $projects_img = mapwise_media_url_by_filename('computer-scaled.jpeg');
     <div class="mw-card-grid">
 
       <article class="mw-card">
-        <a class="mw-card-link" href="<?php echo esc_url(home_url('/2026')); ?>">
+        <a class="mw-card-link" href="<?php echo esc_url(home_url('/forecasts')); ?>">
           <?php if (!empty($forecast_img)) : ?>
             <div class="mw-card-thumb">
               <img src="<?php echo esc_url($forecast_img); ?>" alt="Forecasts" loading="lazy">
