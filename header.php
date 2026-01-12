@@ -15,9 +15,10 @@
 <?php wp_body_open(); ?>
 
 <?php
-$banner  = mapwise_media_url_by_filename('banner.png');
-$x_logo  = mapwise_media_url_by_filename('x_logo.png');
-$yt_logo = mapwise_media_url_by_filename('yt_logo.png');
+$banner   = mapwise_media_url_by_filename('banner.png');
+$x_logo   = mapwise_media_url_by_filename('x_logo.png');
+$yt_logo  = mapwise_media_url_by_filename('yt_logo.png');
+$acct_logo= mapwise_media_url_by_filename('account2-1.png');
 ?>
 
 <header class="site-header">
@@ -48,6 +49,7 @@ $yt_logo = mapwise_media_url_by_filename('yt_logo.png');
       >☰</button>
 
       <ul id="primary-menu" class="nav-list">
+        <li class="nav-item"><a href="<?php echo esc_url(home_url('/subscribe/')); ?>">Subscribe</a></li>
         <li class="nav-item"><a href="<?php echo esc_url(home_url('/forecasts/')); ?>">Forecasts</a></li>
         <li class="nav-item"><a href="<?php echo esc_url(home_url('/articles/')); ?>">Articles</a></li>
 
@@ -62,34 +64,43 @@ $yt_logo = mapwise_media_url_by_filename('yt_logo.png');
             <li><a href="<?php echo esc_url(home_url('/projects/data/')); ?>">Data</a></li>
           </ul>
         </li>
-        <!-- Mobile-only socials inside menu -->
+
+        <!-- Mobile-only icons inside menu -->
         <li class="nav-item nav-social mobile-only">
-          <a class="social-in-menu" href="https://x.com/MapWisePolitics" target="_blank" rel="noopener">
+          <a class="social-in-menu" href="<?php echo esc_url(home_url('/account/')); ?>" aria-label="Account">
+            Account
+          </a>
+        </li>
+        <li class="nav-item nav-social mobile-only">
+          <a class="social-in-menu" href="https://x.com/" target="_blank" rel="noopener" aria-label="X">
             <?php if ($x_logo): ?><img src="<?php echo esc_url($x_logo); ?>" alt="X" class="social-icon"><?php endif; ?>
           </a>
         </li>
         <li class="nav-item nav-social mobile-only">
-          <a class="social-in-menu" href="https://www.youtube.com/@MapWisePolitics" target="_blank" rel="noopener">
+          <a class="social-in-menu" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
             <?php if ($yt_logo): ?><img src="<?php echo esc_url($yt_logo); ?>" alt="YouTube" class="social-icon"><?php endif; ?>
           </a>
         </li>
-
       </ul>
-       <div class="topbar-search">
-      <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-        <input
-          type="search"
-          name="s"
-          placeholder="Search…"
-          value="<?php echo get_search_query(); ?>"
-          aria-label="Search"
-        >
-      </form>
-    </div>
+
+      <div class="topbar-search">
+        <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+          <input
+            type="search"
+            name="s"
+            placeholder="Search…"
+            value="<?php echo get_search_query(); ?>"
+            aria-label="Search"
+          >
+        </form>
+      </div>
     </nav>
 
     <!-- Desktop socials (far right) -->
     <div class="topbar-social" aria-label="Social links">
+      <a class="social-link" href="<?php echo esc_url(home_url('/account/')); ?>" aria-label="Account">
+        <?php if ($acct_logo): ?><img src="<?php echo esc_url($acct_logo); ?>" alt="" class="social-icon"><?php endif; ?>
+      </a>
       <a class="social-link" href="https://x.com/" target="_blank" rel="noopener" aria-label="X">
         <?php if ($x_logo): ?><img src="<?php echo esc_url($x_logo); ?>" alt="" class="social-icon"><?php endif; ?>
       </a>

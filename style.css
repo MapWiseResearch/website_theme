@@ -211,7 +211,7 @@ a { color: inherit; }
   box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .topbar-search { display: none; }
 }
 
@@ -221,7 +221,7 @@ a { color: inherit; }
 
 .mobile-only { display: none; }
 
-@media (max-width: 650px) {
+@media (max-width: 720px) {
   /* header row positioning context + room for pinned hamburger */
   .topbar-inner {
     flex-wrap: nowrap;
@@ -325,7 +325,7 @@ a { color: inherit; }
 }
 
 /* Social visibility rules (deduped + simplified) */
-@media (max-width: 650px) {
+@media (max-width: 720px) {
   .topbar-social { display: none !important; }
   .mobile-only { display: none !important; }
   .site-nav.is-open .mobile-only { display: block !important; }
@@ -1246,47 +1246,75 @@ h1 {
 }
 
 /* =========================
-   Footer (no logos)
+   Footer — structured layout
 ========================= */
 
 .site-footer {
   border-top: 1px solid #ccc;
   margin: var(--mw-stack-lg) auto 0;
+  padding: 0; /* padding lives on .footer-inner */
+}
+
+.site-footer .footer-inner {
   max-width: 1200px;
-  padding: 3rem 1.5rem 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  justify-content: flex-start; /* keep left column layout predictable */
+  margin: 0 auto;
+  padding: 2.75rem 1.5rem 2rem;
 }
 
-.site-footer .footer-column {
-  flex: 1 1 200px;
-  min-width: 200px;
+/* -------------------------
+   Top / Brand
+------------------------- */
+
+.footer-top {
+  padding-bottom: 1.75rem;
 }
 
-/* Brand column: centered content */
-.site-footer .footer-column.brand {
-  flex: 0 1 340px;
-  max-width: 340px;
+.footer-brand {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  gap: 1.25rem;
 }
 
-.site-footer h2 {
-  font-size: 1.4rem;
-  margin: 0 0 .5rem 0;
-  font-weight: 700;
+.footer-logo {
+  display: block;
+  width: auto;
+  height: 64px;         /* controls the “visual weight” */
+  max-width: 240px;
+}
+
+.footer-brand-text {
+  min-width: 0;
+}
+
+.footer-tagline {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* -------------------------
+   Link columns
+------------------------- */
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  column-gap: 3rem;
+  row-gap: 1.5rem;
+  align-items: start;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.footer-column {
+  min-width: 0;
 }
 
 .site-footer h3 {
   font-size: .75rem;
   letter-spacing: .08em;
   text-transform: uppercase;
-  margin-bottom: .75rem;
+  margin: 0 0 .75rem 0;
   color: #666;
 }
 
@@ -1296,17 +1324,24 @@ h1 {
   margin: 0;
 }
 
-.site-footer li { margin-bottom: .5rem; }
+.site-footer li {
+  margin: 0 0 .6rem 0;
+}
 
 .site-footer a {
   text-decoration: none;
-  font-size: .95rem;
+  font-size: .98rem;
 }
 
-.site-footer a:hover { text-decoration: underline; }
+.site-footer a:hover {
+  text-decoration: underline;
+}
 
-.site-footer .footer-bottom {
-  width: 100%;
+/* -------------------------
+   Bottom
+------------------------- */
+
+.footer-bottom {
   border-top: 1px solid #ddd;
   margin-top: 2rem;
   padding-top: 1rem;
@@ -1315,45 +1350,54 @@ h1 {
   text-align: center;
 }
 
-@media (max-width: 800px) {
-  .site-footer {
-    flex-direction: column;
-    gap: 2rem;
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1000px) {
+  .site-footer .footer-inner {
     padding: 2.5rem 1.25rem 2rem;
   }
 
-  .site-footer .footer-column.brand {
-    max-width: none;
-    flex-basis: auto;
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    column-gap: 2.25rem;
   }
 }
 
-/* =========================
-   Footer logo size clamp (fix giant logo)
-========================= */
+@media (max-width: 720px) {
+  .footer-brand {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-/* Safety: never let footer images exceed their column */
-.site-footer img {
-  max-width: 100%;
-  height: auto;
+  .footer-logo {
+    height: 56px;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+    text-align: center;
+  }
+
+  .site-footer a {
+    display: inline-block;
+    padding: .35rem 0;
+    font-size: 1rem;
+  }
+
+  .site-footer li {
+    margin-bottom: .35rem;
+  }
 }
 
-/* If you're using .footer-logo (recommended) */
-.site-footer .footer-logo {
-  display: block;
-  width: 100%;
-  max-width: 220px;   /* <-- adjust (220–320 usually perfect) */
-  height: auto;
-  margin: 0 auto 1rem;
-}
-
-/* Extra safety: if the logo is just "the first img" in brand column */
-.site-footer .footer-column.brand img {
-  display: block;
-  width: 100%;
-  max-width: 220px;   /* keep consistent */
-  height: auto;
-  margin: 0 auto 1rem;
+@media (max-width: 360px) {
+  .site-footer .footer-inner {
+    padding-left: .9rem;
+    padding-right: .9rem;
+  }
 }
 
 /* =========================
