@@ -59,9 +59,9 @@ $acct_logo= mapwise_media_url_by_filename('account2-1.png');
           </button>
 
           <ul class="dropdown-menu" aria-label="Projects submenu">
-            <li><a href="<?php echo esc_url(home_url('/projects/')); ?>">All Projects</a></li>
-            <li><a href="<?php echo esc_url(home_url('/projects/mapwise-forecast/')); ?>">MapWise Forecast</a></li>
-            <li><a href="<?php echo esc_url(home_url('/projects/data/')); ?>">Data</a></li>
+            <li><a href="<?php echo esc_url(home_url('/projects/election-results/')); ?>">Election Results</a></li>
+            <li><a href="<?php echo esc_url(home_url('/projects/forecast-data/')); ?>">Forecast Data</a></li>
+            <li><a href="<?php echo esc_url(home_url('/projects/forecast-record/')); ?>">Forecast Record</a></li>
           </ul>
         </li>
 
