@@ -34,12 +34,17 @@
         </div>
 
         <?php
-          // Optional: show tags under meta line
-          $tags = get_the_tags();
-          if ( $tags ) :
-        ?>
-          <div class="post-tags">
-            <?php the_tags('<span class="tag-label">Tags:</span> ', ', ', ''); ?>
+        $tags = get_the_tags();
+        if ($tags): ?>
+          <div class="tax-row">
+            <span class="tax-label">Tags:</span>
+            <span class="tax-values">
+              <?php foreach ($tags as $tag): ?>
+                <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>">
+                  <?php echo esc_html($tag->name); ?>
+                </a>
+              <?php endforeach; ?>
+            </span>
           </div>
         <?php endif; ?>
       </header>

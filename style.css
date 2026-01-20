@@ -1433,3 +1433,35 @@ h1 {
   background: #fff;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
 }
+
+.post-tags { display: block; }
+
+.tax-values a:not(:last-child)::after{
+  opacity: .55;
+  margin-left: .25rem;
+}
+
+/* keep label + values on same line, allow wrap */
+.tax-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .45rem;
+  align-items: baseline;
+}
+
+/* label doesn't shrink */
+.tax-label { flex: 0 0 auto; }
+
+/* values behave like a wrapping row of links */
+.tax-values{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: .35rem .45rem;
+}
+
+/* optional: remove the underline bar look */
+.tax-values a{
+  border-bottom: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

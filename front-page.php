@@ -41,7 +41,7 @@ $projects_img = mapwise_media_url_by_filename('computer-scaled.jpeg');
     <div class="mw-card-grid">
 
       <article class="mw-card">
-        <a class="mw-card-link" href="<?php echo esc_url(home_url('/forecasts')); ?>">
+        <a class="mw-card-link" href="<?php echo esc_url(home_url('/2026')); ?>">
           <?php if (!empty($forecast_img)) : ?>
             <div class="mw-card-thumb">
               <img src="<?php echo esc_url($forecast_img); ?>" alt="Forecasts" loading="lazy">
@@ -88,8 +88,8 @@ $projects_img = mapwise_media_url_by_filename('computer-scaled.jpeg');
         while ($latest->have_posts()) : $latest->the_post();
 
           $author_name = get_the_author();
-          $cats_list   = get_the_category_list(', ');
-          $tags_list   = get_the_tag_list('', ', ');
+          $cats_list   = get_the_category_list('');
+          $tags_list = get_the_tag_list('', '');
       ?>
 
         <article class="frontpage-card">
