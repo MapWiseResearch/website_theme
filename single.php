@@ -39,7 +39,7 @@
           if ( $tags ) :
         ?>
           <div class="post-tags">
-            <?php the_tags('<span class="tag-label">Tags:</span> ' ' ' ''); ?>
+            <?php the_tags('<span class="tag-label">Tags:</span> ', ', ', ''); ?>
           </div>
         <?php endif; ?>
       </header>
