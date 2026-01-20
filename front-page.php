@@ -88,7 +88,7 @@ $projects_img = mapwise_media_url_by_filename('computer-scaled.jpeg');
         while ($latest->have_posts()) : $latest->the_post();
 
           $author_name = get_the_author();
-          $cats_list   = get_the_category_list('');
+          $cats_list   = get_the_category_list(', ');
           $tags_list = get_the_tag_list('', '');
       ?>
 
